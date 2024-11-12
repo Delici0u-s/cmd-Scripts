@@ -16,14 +16,14 @@ if %errorlevel% neq 0 (
 :skipInput
 
 set total=0
-for /f "delims=" %%f in ('dir /b') do (
+for /f "delims=" %%f in ('dir /b /a:-h') do (
 
     set /a total+=len
+
     if !total! GEQ !maxItems! (
         echo:
         set total=0
     )
-
 
     if exist "%%f\" (
         call :printFolder %%f
@@ -32,10 +32,31 @@ for /f "delims=" %%f in ('dir /b') do (
         set "extension=%%~xf" & rem Extracts the extension
         call :printFile !filename! !extension!
     )
-
-    Set str=%%f
-    Call :$len str len
+    set "str=%%f"
+    call :$len str len
 )
+
+set total=0
+for /f "delims=" %%f in ('dir /b /a:h') do (
+
+    set /a total+=len
+
+    if !total! GEQ !maxItems! (
+        echo:
+        set total=0
+    )
+
+    if exist "%%f\" (
+        call :printHiddenFolder %%f
+    ) else (
+        set "filename=%%~nf"  & rem Extracts the name without extension
+        set "extension=%%~xf" & rem Extracts the extension
+        call :printHiddenFile !filename! !extension!
+    )
+    set "str=%%f"
+    call :$len str len
+)
+
 echo.
 endlocal
 goto :eof
@@ -48,10 +69,24 @@ goto :eof
 <nul set /p="[93m%1[0m  "
 goto :eof
 
+
+:printHiddenFile
+<nul set /p="[35m%1[0m%2  "
+goto :eof
+
+:printHiddenFolder
+<nul set /p="[33m%1[0m  "
+goto :eof
+
 :$len
 setlocal EnableDelayedExpansion
 set s=#!%~1!
 set c=0
-set nums=32 16 8 4 2 1
-for %%N in (%nums%) do if not "!s:~%%N,1!"=="" set /a c+=%%N& set s=!s:~%%N!
-(endlocal & set %~2=%c%)& exit /b
+for /l %%N in (0, 1, 1000) do (
+    if "!s:~%%N,1!"=="" goto lenDone
+    set /a c+=1
+)
+:lenDone
+endlocal & set %~2=%c%
+exit /b
+
