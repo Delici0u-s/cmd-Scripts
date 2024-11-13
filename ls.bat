@@ -57,7 +57,6 @@ for /f "delims=" %%f in ('dir /b /a:h') do (
     call :$len str len
 )
 
-echo.
 endlocal
 goto :eof
 
