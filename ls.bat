@@ -1,7 +1,8 @@
+
 @echo off
 setlocal EnableDelayedExpansion
 
-set maxItems=40
+set maxItems=29
 
 if "%1"=="" goto skipInput
 
@@ -16,76 +17,88 @@ if %errorlevel% neq 0 (
 :skipInput
 
 set total=0
-for /f "delims=" %%f in ('dir /b /a:-h') do (
 
+for /f "delims=" %%f in ('dir /b /a:-d-h') do (
+    set "str=%%f"
+    call :$len str len
+    if !total! GEQ !maxItems! (
+        echo:
+        set total=0
+    )
+    set "filename=%%~nf"
+    set "extension=%%~xf"
+    <nul set /p="[92m!filename![0m!extension! "
     set /a total+=len
+    if !total! LSS !maxItems! (
+        <nul set /p="| "
+    )
+)
 
+for /f "delims=" %%f in ('dir /b /a:d-h') do (
+    set "str=%%f"
+    call :$len str len
     if !total! GEQ !maxItems! (
         echo:
         set total=0
     )
 
-    if exist "%%f\" (
-        call :printFolder %%f
-    ) else (
-        set "filename=%%~nf"  & rem Extracts the name without extension
-        set "extension=%%~xf" & rem Extracts the extension
-        call :printFile !filename! !extension!
-    )
-    set "str=%%f"
-    call :$len str len
-)
-
-set total=0
-for /f "delims=" %%f in ('dir /b /a:h') do (
+    <nul set /p="[93m%%f[0m "
 
     set /a total+=len
+    if !total! LSS !maxItems! (
+        <nul set /p="| "
+    )
+)
+for /f "delims=" %%f in ('dir /b /a:-dh') do (
+    set "str=%%f"
+    call :$len str len
+    if !total! GEQ !maxItems! (
+        echo:
+        set total=0
+    )
+    set "filename=%%~nf"
+    set "extension=%%~xf"
+    <nul set /p="[35m!filename![0m!extension! "
+    set /a total+=len
+    if !total! LSS !maxItems! (
+        <nul set /p="| "
+    )
+)
 
+for /f "delims=" %%f in ('dir /b /a:dh') do (
+    set "str=%%f"
+    call :$len str len
     if !total! GEQ !maxItems! (
         echo:
         set total=0
     )
 
-    if exist "%%f\" (
-        call :printHiddenFolder %%f
-    ) else (
-        set "filename=%%~nf"  & rem Extracts the name without extension
-        set "extension=%%~xf" & rem Extracts the extension
-        call :printHiddenFile !filename! !extension!
+    <nul set /p="[33m%%f[0m "
+
+    set /a total+=len
+    if !total! LSS !maxItems! (
+        <nul set /p="| "
     )
-    set "str=%%f"
-    call :$len str len
 )
+
+
+
 
 endlocal
 goto :eof
 
-:printFile
-<nul set /p="[92m%1[0m%2  "
-goto :eof
-
-:printFolder
-<nul set /p="[93m%1[0m  "
-goto :eof
-
-
-:printHiddenFile
-<nul set /p="[35m%1[0m%2  "
-goto :eof
-
-:printHiddenFolder
-<nul set /p="[33m%1[0m  "
-goto :eof
-
 :$len
 setlocal EnableDelayedExpansion
-set s=#!%~1!
+set "s=#!%~1!"
 set c=0
 for /l %%N in (0, 1, 1000) do (
     if "!s:~%%N,1!"=="" goto lenDone
-    set /a c+=1
+    if "!s:~%%N,1!"=="" (
+        set /a %%N+=3
+    ) else (
+        set /a c+=1
+    )
 )
 :lenDone
 endlocal & set %~2=%c%
 exit /b
-
