@@ -126,10 +126,12 @@ int main(int argc, char **argv) {
     readdir(dr);
     int currentLen = 0;
 
+
     while ((de = readdir(dr)) != NULL) {
         char *fullPath = getFullPath(".", de->d_name);
         if (!fullPath) {
-            fprintf(stderr, "Failed to construct full path for: %s\n", de->d_name);
+            printf("FileErr");
+            currentLen += 7;
             continue;
         }
 
@@ -137,7 +139,8 @@ int main(int argc, char **argv) {
         free(fullPath); // Free memory allocated by getFullPath
 
         if (attributes == INVALID_FILE_ATTRIBUTES) {
-            perror("Error retrieving file attributes");
+            printf("FileErr");
+            currentLen += 7;
             continue; // Skip inaccessible files
         }
 
