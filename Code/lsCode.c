@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include <dirent.h>
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <string.h>
 #include <fileapi.h>
+#include <windows.h>
 
 #define MAXLEN       40
 
@@ -81,29 +81,6 @@ char *ColorFileSeperatetly(const char *stringFileName, int color) {
     // printf("End: %s, Str: %s, Total: %s\n", fileEnd, coloredPre, out);
     return out;
 }
-
-char *getFullPath(const char *dirPath, const char *fileName) {
-    size_t dirPathLen = strlen(dirPath);
-    size_t fileNameLen = strlen(fileName);
-
-    // Allocate enough memory for the full path + '/' + null terminator
-    char *fullPath = malloc(dirPathLen + fileNameLen + 2);
-    if (!fullPath) {
-        perror("Failed to allocate memory");
-        exit(EXIT_FAILURE);
-    }
-
-    strcpy(fullPath, dirPath);
-
-    // Ensure the directory path ends with a '/'
-    if (dirPath[dirPathLen - 1] != '/') {
-        strcat(fullPath, "/");
-    }
-
-    strcat(fullPath, fileName);
-    return fullPath;
-}
-
 int main(int argc, char **argv) {
     // get len argument
     int NewLen;
@@ -113,64 +90,53 @@ int main(int argc, char **argv) {
     else {
         NewLen = MAXLEN;
     }
-    struct dirent *de;
-
-    DIR *dr = opendir(".");
-    if (dr == NULL) {
-        perror("Could not open current directory");
-        return EXIT_FAILURE;
-    }
-
-    // Skip . and ..
-    readdir(dr);
-    readdir(dr);
     int currentLen = 0;
 
+    WIN32_FIND_DATA FindFileData;
+    HANDLE hFind = FindFirstFile("*", &FindFileData);
+    FindNextFile(hFind, &FindFileData); // skip the ..
 
-    while ((de = readdir(dr)) != NULL) {
-        char *fullPath = getFullPath(".", de->d_name);
-        if (!fullPath) {
-            printf("FileErr");
-            currentLen += 7;
-            continue;
-        }
+    if (hFind == INVALID_HANDLE_VALUE) {
+        printf("FileSearchFailed... Error: %lu\n", GetLastError());
+    } else {
+        while (FindNextFile(hFind, &FindFileData) != 0)
+        {
+            char *coloredName = NULL;
+            if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+            {
+                if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN)
+                {
+                    coloredName = StringColored(FindFileData.cFileName, 33);
+                }
+                else
+                {
+                    coloredName = StringColored(FindFileData.cFileName, 93);
+                }
+            }
+            else
+            {
+                if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN)
+                {
+                    coloredName = ColorFileSeperatetly(FindFileData.cFileName, 35);
+                }
+                else
+                {
+                    coloredName = ColorFileSeperatetly(FindFileData.cFileName, 32);
+                }
+            }
 
-        DWORD attributes = GetFileAttributes(fullPath);
-        free(fullPath); // Free memory allocated by getFullPath
-
-        if (attributes == INVALID_FILE_ATTRIBUTES) {
-            printf("FileErr");
-            currentLen += 7;
-            continue; // Skip inaccessible files
-        }
-
-        char *coloredName = NULL;
-
-        if (attributes & FILE_ATTRIBUTE_DIRECTORY) {
-            // Handle directories
-            coloredName = StringColored(de->d_name, 33 + 60*(!(attributes & FILE_ATTRIBUTE_HIDDEN)) ); // Yellow color for directories
-        } else if (attributes & FILE_ATTRIBUTE_HIDDEN) {
-            // Handle hidden files
-            coloredName = ColorFileSeperatetly(de->d_name, 35); // Purple for hidden files
-        } else {
-            // Handle regular files
-            coloredName = ColorFileSeperatetly(de->d_name, 32); // Green for regular files
-        }
-
-        int wordlen = strlen(de->d_name)+2; // +1 for space
-        if (currentLen > NewLen) {
-            printf("\n");
-            currentLen = wordlen;
-        }
-        else{
-            currentLen += wordlen;
-        }
-        if (coloredName) {
             printf("%s  ", coloredName);
-            free(coloredName); // Free memory after use
+
+            int wordlen = strlen(FindFileData.cFileName)+2; // +1 for space
+            if (currentLen + wordlen > NewLen) {
+                printf("\n");
+                currentLen = wordlen;
+            }
+            else{
+                currentLen += wordlen;
+            }
         }
+        FindClose(hFind);
     }
 
-    closedir(dr);
-    return 0;
 }
