@@ -26,10 +26,7 @@ This is to make my, *and if you want your,*  life easier.
     >   * ``` ls```
     >   * ``` ls <characters till newline>```
     >* ***ColorCoding***
-    >   * **<span style="color:rgb(19, 157, 14)">FileName</span>**<span style="color:rgb(204, 204, 204)">.extiension</span>
-    >   * **<span style="color:rgb(134, 23, 150)">HiddenFileName</span>**<span style="color:rgb(204, 204, 204)">.extiension</span>
-    >   * **<span style="color:rgb(249, 241, 165)">Folder</span>**
-    >   * **<span style="color:rgb(193, 156, 0)">HiddenFolder</span>**
+    >   * ![ls-command-example](https://raw.githubusercontent.com/Delici0u-s/cmd-Scripts/refs/heads/master/Show_Example_Files_Github/OtherFiles/ColorCoding.png)
 3. ### cr
     > * **FILE:** cr.exe
     > * ***Description***  
