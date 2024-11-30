@@ -25,7 +25,7 @@ This is to make my, *and if you want your,*  life easier.
     >* ***Usage***
     >   * ``` ls```
     >   * ``` ls <characters till newline>```
-    >* ***ColorCoding***
+    >* ***ColorCoding***  
     >     ![ls-command-example](https://raw.githubusercontent.com/Delici0u-s/cmd-Scripts/refs/heads/master/Show_Example_Files_Github/OtherFiles/ColorCoding.png)
 3. ### cr
     > * **FILE:** cr.exe
