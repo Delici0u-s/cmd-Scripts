@@ -11,11 +11,12 @@ void main(int argc, char* argv[]) {
         printf("  %s <path/to/folder> <file1> <folder2/folder3> <file2> ...\n\n", argv[0]);
         printf("Description:\n");
         printf("  - Create directories and files based on the specified arguments.\n");
-        printf("  - Use '/' to define nested directories (e.g., folder1/folder2).\n");
-        printf("  - Use spaces to separate files and directories.\n");
+        printf("  - Use '/' to define nested directories (e.g., folder1/folder2/).\n");
+        printf("  - Use '.' to create a folder without moving to it (e.g., folder1/.folder2/).\n");
+        printf("  - Use spaces to separate files and/or directories.\n");
         printf("  - Files and directories can be mixed in any order.\n\n");
         printf("Examples:\n");
-        printf("  %s folder1/folder2 test.txt folder3/walls.txt sand/sandman.txt\n", argv[0]);
+        printf("  %s folder1/folder2 test.txt folder3/walls.txt sand/.images/sandman.txt\n", argv[0]);
         return;
     }
 
@@ -75,7 +76,7 @@ void main(int argc, char* argv[]) {
                     );
 
                     if (hFile == INVALID_HANDLE_VALUE) {
-                        printf("Creating File failed (%s): (%d)\n", token, GetLastError());
+                        printf("Creating File \"%s\" failed \n", token);
                     } else {
                         CloseHandle(hFile);
                     }
@@ -85,14 +86,15 @@ void main(int argc, char* argv[]) {
                     if (stat(token, &path_stat) == 0 && !S_ISDIR(path_stat.st_mode)) {
                         printf("Cannot create directory '%s': A file with the same name exists.\n", token);
                     } else {
-                        if (CreateDirectory(token, NULL)) {
-                            if (SetCurrentDirectoryA(token)) {
-                            } else {
-                                printf("Failed to move to %s: (%d)\n", token, GetLastError());
-                            }
+                        if (token[0] == '.') {
+                            CreateDirectory(token+1, NULL);
                         } else {
-                            printf("Creating Directory failed (%s): (%d)\n", token, GetLastError());
+                            CreateDirectory(token, NULL);
+                            if (!SetCurrentDirectoryA(token)) {
+                                printf("Failed to move to %s\n", token);
+                            }
                         }
+
                     }
                 }
                 free(token);
