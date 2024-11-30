@@ -1,2 +1,2 @@
 @echo off
-EXIT
+EXIT 0
