@@ -126,15 +126,18 @@ int main(int argc, char **argv) {
         }
 
 
-        int wordlen = strlen(FindFileData.cFileName) + 2; // +2 for space
+        int wordlen = strlen(FindFileData.cFileName); // +2 for space
         if (currentLen + wordlen > NewLen && currentLen != 0) {
             printf("\n");
             currentLen = wordlen;
+        } else if (currentLen != 0) {
+            printf("  ");
+            currentLen += wordlen + 2;
         } else {
-            currentLen += wordlen;
+            currentLen += wordlen + 2;
         }
 
-        printf("%s  ", coloredName);
+        printf("%s", coloredName);
 
 
         free(coloredName); // Free dynamically allocated memory
