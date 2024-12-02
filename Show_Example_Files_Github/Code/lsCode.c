@@ -125,20 +125,23 @@ int main(int argc, char **argv) {
             }
         }
 
-        printf("%s  ", coloredName);
 
         int wordlen = strlen(FindFileData.cFileName) + 2; // +2 for space
-        if (currentLen + wordlen > NewLen) {
+        if (currentLen + wordlen > NewLen && currentLen != 0) {
             printf("\n");
             currentLen = wordlen;
         } else {
             currentLen += wordlen;
         }
 
+        printf("%s  ", coloredName);
+
+
         free(coloredName); // Free dynamically allocated memory
     }
 
     FindClose(hFind);
+    printf("\n");
     return EXIT_SUCCESS;
 }
 
