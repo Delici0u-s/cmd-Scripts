@@ -1,7 +1,8 @@
 # CMD-Scripts
 As im driving more to working with the cmd im developing these commands.  
 This is to make my, *and if you want your,*  life easier.
-> All commands were writen on and for windows, idk if it works in other operating systems  
+> All commands were writen on and for windows, idk if it works in other operating systems
+>
 > **!NOTE!** I dont know why but my antivirus sometimes flagges the compiled version of cr. Please look at the code and compile it yourself too, as far as i know it shouldn't be malicious
 
 ### How to use the scripts
