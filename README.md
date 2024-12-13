@@ -18,15 +18,15 @@ This is to make my, *and if you want your,*  life easier.
     >   * quits your terminal (at lease should)
     > * ***Usage***  
     >      * ``` q ```
-2. ### ls
-    >* **FILE:** ls.exe
+2. ### lsd
+    >* **FILE:** lsd.exe
     >* ***Description***  
     >   * Shows you all files in current directory, colored and compact
     >   * Example:  
     >       ![ls-command-example](https://raw.githubusercontent.com/Delici0u-s/cmd-Scripts/refs/heads/master/Show_Example_Files_Github/OtherFiles/ls_Example.png)
     >* ***Usage***
-    >   * ``` ls```
-    >   * ``` ls <characters till newline>```
+    >   * ``` lsd```
+    >   * ``` lsd <characters till newline>```
     >* ***ColorCoding***  
     >     ![ls-command-example](https://raw.githubusercontent.com/Delici0u-s/cmd-Scripts/refs/heads/master/Show_Example_Files_Github/OtherFiles/ColorCoding.png)
 3. ### cr
@@ -36,7 +36,7 @@ This is to make my, *and if you want your,*  life easier.
     > * Example:  
     >    * ``` D:\example>cr samples/totalamount.txt code.c headers.h .tmp/otherfiles/..useless/helper.py ```  
     >    * Creates this **structure**:  
-    >       ![ls-command-example](https://github.com/Delici0u-s/cmd-Scripts/blob/master/Show_Example_Files_Github/OtherFiles/crExample.png?raw=true)
+    >       ![cr-command-example](https://github.com/Delici0u-s/cmd-Scripts/blob/master/Show_Example_Files_Github/OtherFiles/crExample.png?raw=true)
     > * ***Usage:***
     >   * ``` cr [combination of folders and files according to following syntax] ```
     >   * **Syntax:**
