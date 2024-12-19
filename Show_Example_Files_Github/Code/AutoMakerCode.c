@@ -150,7 +150,7 @@ void generateMakefile(const char* mainFile, const char* outputName, FileList* in
         return;
     }
 
-    char* compiler = strstr(mainFile, ".cpp") ? "g++ -std=c++20" : "gcc";
+    char* compiler = strstr(mainFile, ".cpp") ? "g++" : "gcc";
     
     // Write compiler variables
     fprintf(makefile, "CC=%s\n", compiler);
