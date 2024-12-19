@@ -12,13 +12,7 @@ This is to make my, *and if you want your,*  life easier.
   
 ---
 ## Commands:
-1. ### q
-    > * **FILE:** q.bat  
-    > * ***Description***  
-    >   * quits your terminal (at lease should)
-    > * ***Usage***  
-    >      * ``` q ```
-2. ### lsd
+1. ### lsd
     >* **FILE:** lsd.exe
     >* ***Description***  
     >   * Shows you all files in current directory, colored and compact
@@ -29,7 +23,7 @@ This is to make my, *and if you want your,*  life easier.
     >   * ``` lsd <characters till newline>```
     >* ***ColorCoding***  
     >     ![ls-command-example](https://raw.githubusercontent.com/Delici0u-s/cmd-Scripts/refs/heads/master/Show_Example_Files_Github/OtherFiles/ColorCoding.png)
-3. ### cr
+2. ### cr
     > * **FILE:** cr.exe
     > * ***Description***  
     >   * Create bunch of Files and Folders at once
