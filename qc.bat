@@ -9,6 +9,7 @@ REM Initialize variables
 set DebugFlag=false
 set OutputFile=
 set SourceFile=
+set FileArgs=
 
 REM Parse arguments to find -g and -o flags, and determine the source file
 setlocal enabledelayedexpansion
@@ -23,6 +24,9 @@ for %%a in (%*) do (
         set NextArg=
     ) else if not defined SourceFile (
         set SourceFile=%%a
+        set FileArgs=!FileArgs! "%%a"
+    ) else (
+        set FileArgs=!FileArgs! "%%a"
     )
 )
 
@@ -44,19 +48,19 @@ REM C file compilation (using gcc)
 if /i "%FileExtension%"==".c" (
     if "%DebugFlag%"=="true" (
         REM Use -g for debugging symbols
-        gcc "%SourceFile%" -o "%OutputFile%" -g
+        gcc %FileArgs% -o "%OutputFile%" -g
     ) else (
         REM Use -s to strip debugging symbols
-        gcc "%SourceFile%" -o "%OutputFile%" -s
+        gcc %FileArgs% -o "%OutputFile%" -s
     )
 ) else if /i "%FileExtension%"==".cpp" (
     REM C++ file compilation (using g++)
     if "%DebugFlag%"=="true" (
         REM Use -g for debugging symbols
-        g++ "%SourceFile%" -std=c++20 -Wall -Wextra -o "%OutputFile%" -g
+        g++ %FileArgs% -std=c++20 -Wall -Wextra -o "%OutputFile%" -g
     ) else (
         REM Use -s to strip debugging symbols
-        g++ "%SourceFile%" -std=c++20 -Wall -Wextra -o "%OutputFile%" -s
+        g++ %FileArgs% -std=c++20 -Wall -Wextra -o "%OutputFile%" -s
     )
 ) else (
     echo Unsupported file type: %FileExtension%. Only .c and .cpp files are supported.
