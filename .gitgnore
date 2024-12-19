@@ -2,3 +2,5 @@
 nvimDir.bat
 p.bat
 unzip.exe
+nvimDir.ps1
+p.ps1
