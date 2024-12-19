@@ -42,6 +42,33 @@ This is to make my, *and if you want your,*  life easier.
     >           * ```Folder/Folder2/Folder3/``` Creates a the three folders in each other
     >       * Files:
     >           * just make sure no "/" is in or directly after the file name and extension
+3. ### qc
+    >* **FILE:** qc.bat
+    >* ***Description***  
+    >   * compiles cpp and c files
+    >   * reducing writing effort
+    >* ***Usage***  
+    >   * ``` qc mainFile.ext <otherfiles> <args>```
+    >       * args and otherfiles dont care about positioning. Mix them up as you like, just the mainfile's position is important.
+    >   * example:
+    >       * ``` qc main.c```
+    >           * tries to compile main.exe in the current dir
+    >       * ``` qc main.c utils.c -g```
+    >           * tries to compile main.exe in the current dir. Also puts utils.c into the compilation command. With the -g flag
+    >       * ``` qc main.cpp -o D:\example\output.exe```
+    >           * tries to compile main.cpp to D:\example\output.exe
+    >       * ``` qc Walrus.cpp helper.c -O3 -o ./Releases/Final/App.exe```
+    >           * tries to compile Walrus.cpp with helper.c with O3 optimization in the relative location /Releases/Final/App.exe
+    >* ***args***  
+    >   * ``` -g ```
+    >       * Adds the -g flag to the compilation
+    >       * Usually -s is used, but -g 'replaces' the -s
+    >   * ``` -o compilationName ```
+    >       * defines the output name.
+    >       * can be Path too
+
+
+
 
 ## Thanks for Reading!
 > I hope these commands can be useful, for me they at least are.  
