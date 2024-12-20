@@ -66,6 +66,9 @@ This is to make my, *and if you want your,*  life easier.
     >   * ``` -o compilationName ```
     >       * defines the output name.
     >       * can be Path too
+    >   * ``` -w ```
+    >       * Adds the -Wall -Wextra flags to the compilation
+
 
 
 

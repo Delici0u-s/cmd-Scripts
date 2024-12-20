@@ -7,16 +7,19 @@ if "%~1"=="" (
 
 REM Initialize variables
 set DebugFlag=false
+set EnableWarnings=false
 set OutputFile=
 set SourceFile=
 set FileArgs=
 
-REM Parse arguments to find -g and -o flags, and determine the source file
+REM Parse arguments to find -g, -w, and -o flags, and determine the source file
 setlocal enabledelayedexpansion
 set NextArg=
 for %%a in (%*) do (
     if "%%a"=="-g" (
         set DebugFlag=true
+    ) else if "%%a"=="-w" (
+        set EnableWarnings=true
     ) else if "%%a"=="-o" (
         set NextArg=o
     ) else if "!NextArg!"=="o" (
@@ -47,20 +50,32 @@ for %%f in ("%SourceFile%") do set FileExtension=%%~xf
 REM C file compilation (using gcc)
 if /i "%FileExtension%"==".c" (
     if "%DebugFlag%"=="true" (
-        REM Use -g for debugging symbols
-        gcc %FileArgs% -o "%OutputFile%" -g
+        if "%EnableWarnings%"=="true" (
+            gcc %FileArgs% -o "%OutputFile%" -g -Wall -Wextra
+        ) else (
+            gcc %FileArgs% -o "%OutputFile%" -g
+        )
     ) else (
-        REM Use -s to strip debugging symbols
-        gcc %FileArgs% -o "%OutputFile%" -s
+        if "%EnableWarnings%"=="true" (
+            gcc %FileArgs% -o "%OutputFile%" -s -Wall -Wextra
+        ) else (
+            gcc %FileArgs% -o "%OutputFile%" -s
+        )
     )
 ) else if /i "%FileExtension%"==".cpp" (
     REM C++ file compilation (using g++)
     if "%DebugFlag%"=="true" (
-        REM Use -g for debugging symbols
-        g++ %FileArgs% -std=c++20 -Wall -Wextra -o "%OutputFile%" -g
+        if "%EnableWarnings%"=="true" (
+            g++ %FileArgs% -std=c++20 -o "%OutputFile%" -g -Wall -Wextra
+        ) else (
+            g++ %FileArgs% -std=c++20 -o "%OutputFile%" -g
+        )
     ) else (
-        REM Use -s to strip debugging symbols
-        g++ %FileArgs% -std=c++20 -Wall -Wextra -o "%OutputFile%" -s
+        if "%EnableWarnings%"=="true" (
+            g++ %FileArgs% -std=c++20 -o "%OutputFile%" -s -Wall -Wextra
+        ) else (
+            g++ %FileArgs% -std=c++20 -o "%OutputFile%" -s
+        )
     )
 ) else (
     echo Unsupported file type: %FileExtension%. Only .c and .cpp files are supported.
