@@ -27,6 +27,7 @@ This is to make my, *and if you want your,*  life easier.
     > * **FILE:** cr.exe
     > * ***Description***  
     >   * Create bunch of Files and Folders at once
+    >   * short for create
     > * Example:  
     >    * ``` D:\example>cr samples/totalamount.txt code.c headers.h .tmp/otherfiles/..useless/helper.py ```  
     >    * Creates this **structure**:  
@@ -47,6 +48,7 @@ This is to make my, *and if you want your,*  life easier.
     >* ***Description***  
     >   * compiles cpp and c files
     >   * reducing writing effort
+    >   * short for QuickCompile
     >* ***Usage***  
     >   * ``` qc mainFile.ext <otherfiles> <args>```
     >       * args and otherfiles dont care about positioning. Mix them up as you like, just the mainfile's position is important.
