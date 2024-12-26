@@ -51,30 +51,30 @@ REM C file compilation (using gcc)
 if /i "%FileExtension%"==".c" (
     if "%DebugFlag%"=="true" (
         if "%EnableWarnings%"=="true" (
-            gcc %FileArgs% -o "%OutputFile%" -g -Wall -Wextra
-        ) else (
             gcc %FileArgs% -o "%OutputFile%" -g
+        ) else (
+            gcc %FileArgs% -o "%OutputFile%" -g -Wall -Wextra
         )
     ) else (
         if "%EnableWarnings%"=="true" (
-            gcc %FileArgs% -o "%OutputFile%" -s -Wall -Wextra
-        ) else (
             gcc %FileArgs% -o "%OutputFile%" -s
+        ) else (
+            gcc %FileArgs% -o "%OutputFile%" -s -Wall -Wextra
         )
     )
 ) else if /i "%FileExtension%"==".cpp" (
     REM C++ file compilation (using g++)
     if "%DebugFlag%"=="true" (
         if "%EnableWarnings%"=="true" (
-            g++ %FileArgs% -std=c++20 -o "%OutputFile%" -g -Wall -Wextra
+            g++ %FileArgs% -std=c++23 -o "%OutputFile%" -g
         ) else (
-            g++ %FileArgs% -std=c++20 -o "%OutputFile%" -g
+            g++ %FileArgs% -std=c++23 -o "%OutputFile%" -g -Wall -Wextra
         )
     ) else (
         if "%EnableWarnings%"=="true" (
-            g++ %FileArgs% -std=c++20 -o "%OutputFile%" -s -Wall -Wextra
+            g++ %FileArgs% -std=c++23 -o "%OutputFile%" -s
         ) else (
-            g++ %FileArgs% -std=c++20 -o "%OutputFile%" -s
+            g++ %FileArgs% -std=c++23 -o "%OutputFile%" -s -Wall -Wextra
         )
     )
 ) else (
