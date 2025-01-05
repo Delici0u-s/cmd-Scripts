@@ -53,13 +53,13 @@ if /i "%FileExtension%"==".c" (
         if "%EnableWarnings%"=="true" (
             gcc %FileArgs% -o "%OutputFile%" -g
         ) else (
-            gcc %FileArgs% -o "%OutputFile%" -g -Wall -Wextra
+            gcc %FileArgs% -o "%OutputFile%" -g -Wall -Wextra -Wshadow
         )
     ) else (
         if "%EnableWarnings%"=="true" (
             gcc %FileArgs% -o "%OutputFile%" -s
         ) else (
-            gcc %FileArgs% -o "%OutputFile%" -s -Wall -Wextra
+            gcc %FileArgs% -o "%OutputFile%" -s -Wall -Wextra -Wshadow
         )
     )
 ) else if /i "%FileExtension%"==".cpp" (
@@ -68,13 +68,13 @@ if /i "%FileExtension%"==".c" (
         if "%EnableWarnings%"=="true" (
             g++ %FileArgs% -std=c++23 -o "%OutputFile%" -g
         ) else (
-            g++ %FileArgs% -std=c++23 -o "%OutputFile%" -g -Wall -Wextra
+            g++ %FileArgs% -std=c++23 -o "%OutputFile%" -g -Wall -Wextra -Wshadow
         )
     ) else (
         if "%EnableWarnings%"=="true" (
             g++ %FileArgs% -std=c++23 -o "%OutputFile%" -s
         ) else (
-            g++ %FileArgs% -std=c++23 -o "%OutputFile%" -s -Wall -Wextra
+            g++ %FileArgs% -std=c++23 -o "%OutputFile%" -s -Wall -Wextra -Wshadow
         )
     )
 ) else (
