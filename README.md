@@ -79,7 +79,7 @@ This is to make my, *and if you want your,*  life easier.
     >   * Many file removals at the same time
     >   * By the way, gj stands for GoodJob. As per GoodJob Files as a final goodbye to the files
     >* ***Usage***  
-    >   * ```gj``` / ``` gj --help```
+    >   * ```gj``` / ```gj --help```
     >       * Displays help Information
     >   * ```gj <files>```
     >       * args and otherfiles dont care about positioning. Mix them up as you like, just the mainfile's position is important.
