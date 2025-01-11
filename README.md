@@ -72,8 +72,23 @@ This is to make my, *and if you want your,*  life easier.
     >       * can be Path too
     >   * ``` -w ```
     >       * removes the -Wall -Wextra flags to the compilation
-
-
+3. ### gj
+    >* **FILE:** gj.exe
+    >* ***Description***  
+    >   * Removes all specified Files and Folders
+    >   * Many file removals at the same time
+    >   * By the way, gj stands for GoodJob. As per GoodJob Files as a final goodbye to the files
+    >* ***Usage***  
+    >   * ``` gj``` / ``` gj --help```
+    >       * Displays help Information
+    >   * ``` gj <files>```
+    >       * args and otherfiles dont care about positioning. Mix them up as you like, just the mainfile's position is important.
+    >   * example:
+    >       * ``` gj main.c```
+    >           * removes main.c in the current directory
+    >       * ``` gj main.cpp Sampler.exe D:\example\output.exe```
+    >           * removes main.cpp Sampler.exe in the current directory
+    >           * removes ```D:\example\output.exe```
 
 
 
