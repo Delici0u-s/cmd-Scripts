@@ -9,7 +9,7 @@ This is to make my, *and if you want your,*  life easier.
 ### How to use the scripts
 >Download them via got clone or downloading via git as zip, or any other way you want.  
 >Put these files in a directory that is in your PATH environment, or add that folder to your PATH environment.  
->Run the commands: ```:MasonInstallAll``` and ```!pip install clang-format```
+>Run the commands: ```:MasonInstallAll```, ```:Lazy sync```, ```!pip install pyright``` and ```!pip install clang-format```
 >Done!
   
 ---
