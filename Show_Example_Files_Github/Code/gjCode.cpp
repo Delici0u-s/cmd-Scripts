@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     // Check if the file/directory exists, then remove accordingly with user feedback if file doesnt exist
     if (std::filesystem::exists(argv[i]))
     {
-      int success{system(std::format("rm -f -r {}", argv[i]).c_str())};
+      int success{system(std::format("rm -f -r -- {}", argv[i]).c_str())};
       if (success)
       {
         std::cout << argv[i] << " failed execute command on this item\n";
