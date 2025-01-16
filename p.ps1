@@ -1,1 +1,0 @@
-Set-Location "D:\Progremming\.Synced\Languages"

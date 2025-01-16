@@ -1,1 +1,0 @@
-Set-Location "C:\Users\maxib\AppData\Local\nvim"
