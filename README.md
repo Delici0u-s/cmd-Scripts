@@ -44,14 +44,14 @@ This is to make my, *and if you want your,*  life easier.
     >           * ```Folder/Folder2/Folder3/``` Creates a the three folders in each other
     >       * Files:
     >           * just make sure no "/" is in or directly after the file name and extension
-3. ### qc
-    >* **FILE:** qc.bat
+3. ### am
+    >* **FILE:** am.exe
     >* ***Description***  
-    >   * compiles cpp and c files
+    >   * Creates a makefile based in input arguments
     >   * reducing writing effort
-    >   * short for QuickCompile
+    >   * short for AutoMakeFileGenerator
     >* ***Usage***  
-    >   * ```qc mainFile.ext <otherfiles> <args>```
+    >   * ```am mainFile <otherfiles> <args>```
     >       * args and otherfiles dont care about positioning. Mix them up as you like, just the mainfile's position is important.
     >   * example:
     >       * ```qc main.c```
@@ -63,15 +63,24 @@ This is to make my, *and if you want your,*  life easier.
     >       * ```qc Walrus.cpp helper.c -O3 -o ./Releases/Final/App.exe```
     >           * tries to compile Walrus.cpp with helper.c with O3 optimization in the relative location /Releases/Final/App.exe
     >* ***args***  
-    >   * ```-g ```
-    >       * Adds the -g flag to the compilation
-    >       * Usually -s is used, but -g 'replaces' the -s
     >   * ```-o compilationName```
     >       * defines the output name.
     >       * can be Path too
-    >   * ```-w```
-    >       * removes the -Wall -Wextra flags to the compilation
-3. ### gj
+    >* ***DefaultModes***
+    >   * just ```make```
+    >       * compiles with -Og (for debugging) by Default, and your other args and <files
+    >   * ```make prod```
+    >       * compiles for production
+    >       * enables only your given files, and the flags: 
+    >           * -Os (better than -O2, more stable-ish than -O3) 
+    >           * -s (removes unnecessary stuff) 
+    >           * -DNDEBUG (no asserts etc.)
+    >   * ```make clean```
+    >       * removes compiled executable
+    >   * ```make clear```
+    >       * removes compiled executable
+    >       * Added it because i sometimes misstype or missthink
+4. ### gj
     >* **FILE:** gj.exe
     >* ***Description***  
     >   * Removes all specified Files and Folders
