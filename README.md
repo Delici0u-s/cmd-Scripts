@@ -53,15 +53,15 @@ This is to make my, *and if you want your,*  life easier.
     >* ***Usage***  
     >   * ```am mainFile <otherfiles> <args>```
     >       * args and otherfiles dont care about positioning. Mix them up as you like, just the mainfile's position is important.
-    >   * example:
-    >       * ```qc main.c```
-    >           * tries to compile main.exe in the current dir
-    >       * ```qc main.c utils.c -g```
-    >           * tries to compile main.exe in the current dir. Also puts utils.c into the compilation command. With the -g flag
-    >       * ```qc main.cpp -o D:\example\output.exe```
-    >           * tries to compile main.cpp to D:\example\output.exe
-    >       * ```qc Walrus.cpp helper.c -O3 -o ./Releases/Final/App.exe```
-    >           * tries to compile Walrus.cpp with helper.c with O3 optimization in the relative location /Releases/Final/App.exe
+    >   * examples:
+    >       * ```am main.c```
+    >           * creates a makefile that on run results in main.exe on windows and main on linux
+    >       * ```am main.c utils.c -g```
+    >           * creates a makefile with main.c as the Mainfile, utils.c as a otherfile and -g as an arg (useless because of -Og being default added)
+    >       * ```am main.cpp -o D:\example\output.exe```
+    >           * creates a makefile, that on run creates output.exe in the directory: "D:\\example\\"
+    >       * ```am Walrus.cpp helper.c -O3 -o ./Releases/Final/App```
+    >           * creates a maikefile with Walrus.cpp as Mainfile, helper.c as otherfile, -O3 as argument which will be used in ```make``` but not in ```make prod``` (as custom args are disabled (have to be manually added))and on running make creates App (App.exe if on linux) in the relative ./Releases/Final/ directory
     >* ***args***  
     >   * ```-o compilationName```
     >       * defines the output name.
