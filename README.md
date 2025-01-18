@@ -61,7 +61,10 @@ This is to make my, *and if you want your,*  life easier.
     >       * ```am main.cpp -o D:\example\output.exe```
     >           * creates a makefile, that on run creates output.exe in the directory: "D:\\example\\"
     >       * ```am Walrus.cpp helper.c -O3 -o ./Releases/Final/App```
-    >           * creates a maikefile with Walrus.cpp as Mainfile, helper.c as otherfile, -O3 as argument which will be used in ```make``` but not in ```make prod``` (as custom args are disabled (have to be manually added))and on running make creates App (App.exe if on linux) in the relative ./Releases/Final/ directory
+    >           * creates a maikefile with Walrus.cpp as Mainfile, helper.c as otherfile,  
+    >             -O3 as argument which will be used in ```make``` but not in ```make prod```  
+    >             (as custom args are disabled (have to be manually added))  
+    >             and on running make creates App (App.exe if on linux) in the relative ./Releases/Final/ directory
     >* ***args***  
     >   * ```-o compilationName```
     >       * defines the output name.
