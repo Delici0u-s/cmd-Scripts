@@ -9,7 +9,7 @@
 
 int HelpMessage()
 {
-  std::cout << "\nAutoMakeFileGenerator (am) V1.0\n"
+  std::cout << "\nAutoMakeFileGenerator (am) V1.1\n"
             << "by Delici0us_ or Delici0u-s\n"
             << "\n"
             << "Generate makefile based on input (similar to just using gcc/g++)\n"
@@ -99,33 +99,57 @@ int main(int argc, char *argv[])
     // gets the current cplusplus compiler(when compiling) version,
     // for example 202302 and extracts the last two year digits, in this case 23.
     // Should work for every version (and future) except for 98, which has date 199711 (results in 97 not 98)
-    MakeFile << "LANGUAGESTD = " << (__cplusplus % 10000) / 100;
+    MakeFile << "LANGUAGESTD = --std=c++" << (__cplusplus % 10000) / 100;
   }
 
+  // I know i could have made it a function or sum, but this makes it easier to see the structure of the future makefile, thus making changes easier. Also no cpu branching ^_^
   MakeFile << "\n\n# Default target (for development/debugging)\n";
   MakeFile << "all: $(OUTPUT)\n\n";
   MakeFile << "$(OUTPUT): $(MAINFILE) $(OTHERFILES)\n";
   // --std=c++VERSION before the OTHERFLAGS as the later flag (if provides as input arg) overwrites the provious
-  MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "--std=c++$(LANGUAGESTD) " : "")
+  MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
            << "$(OTHERFLAGS) -Og\n\n";
+
   MakeFile << "# Production target (optimized and stripped binary)\n";
   MakeFile << "prod: $(MAINFILE) $(OTHERFILES)\n";
-  MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) -Os -s -DNDEBUG"
-           << (!isCfile ? " --std=c++$(LANGUAGESTD) " : "") << "\n\n";
+  MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
+           << "$(OTHERFLAGS) -Os -s -DNDEBUG\n\n";
+
+  MakeFile << "# optimized for speed\n";
+  MakeFile << "fast: $(MAINFILE) $(OTHERFILES)\n";
+  MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
+           << "$(OTHERFLAGS) -Ofast -Og\n\n";
+
+  MakeFile << "# optimized for speed, but without debug\n";
+  MakeFile << "pfast: $(MAINFILE) $(OTHERFILES)\n";
+  MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
+           << "$(OTHERFLAGS) -Ofast -s -DNDEBUG\n\n";
+
+  MakeFile << "# optimized for space/memory efficiency\n";
+  MakeFile << "space: $(MAINFILE) $(OTHERFILES)\n";
+  MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
+           << "$(OTHERFLAGS) -Oz -Og\n\n";
+
+  MakeFile << "# optimized for space/memory efficiency, but without debug\n";
+  MakeFile << "pspace: $(MAINFILE) $(OTHERFILES)\n";
+  MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
+           << "$(OTHERFLAGS) -Oz -s -DNDEBUG\n\n";
+
+  MakeFile << "# Just everything thrown together\n";
+  MakeFile << "max: $(MAINFILE) $(OTHERFILES)\n";
+  MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
+           << "$(OTHERFLAGS) -Os -Ofast -Oz -Og\n\n";
+
+  MakeFile << "# Just everything thrown together, but without debug\n";
+  MakeFile << "pmax: $(MAINFILE) $(OTHERFILES)\n";
+  MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
+           << "$(OTHERFLAGS) -Os -Ofast -Oz -s -DNDEBUG\n\n";
+
   MakeFile << "# Clean target (works for Linux and Windows)\n";
   MakeFile << "clean:\n";
   MakeFile << "\trm $(OUTPUT)\n";
   MakeFile << "clear:\n";
   MakeFile << "\trm $(OUTPUT)";
-
-  // Uncomment to get debug features O_O
-  // std::cout << MainFile << ' ' << Compiler << ' ' << Outfile;
-
-  // std::cout << "\nFlags:\n";
-  // for (auto& i : cFlags) std::cout << ' ' << argv[i];
-  // std::cout << "\nFiles:\n";
-  // for (auto& i : cFiles) std::cout << ' ' << argv[i];
-  // return 0;
 
   MakeFile.close();
 

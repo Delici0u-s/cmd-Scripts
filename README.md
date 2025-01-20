@@ -74,10 +74,37 @@ This is to make my, *and if you want your,*  life easier.
     >       * compiles with -Og (for debugging) by Default, and your other args and <files
     >   * ```make prod```
     >       * compiles for production
-    >       * enables only your given files, and the flags: 
+    >       * enables your given files, flags and the additional flags: 
     >           * -Os (better than -O2, more stable-ish than -O3) 
     >           * -s (removes unnecessary stuff) 
     >           * -DNDEBUG (no asserts etc.)
+    >   * ```make fast```
+    >       * compiles optimized for speed
+    >       * enables your given files, flags and the additional flags: 
+    >           * -Ofast (as far as i know optimal for fast)
+    >           * -Og (for debugging)
+    >   * ```make pfast```
+    >       * like fast, but without debug stuff and such
+    >       * adds flags -s and -DNDEBUG instead of -Og
+    >   * ```make space```
+    >       * compiles optimized for space efficiency (i think memory and storage, idk exactly though)
+    >       * enables your given files, flags and the additional flags: 
+    >           * -Oz (optimized for space efficiency)
+    >           * -Og (for debugging)
+    >   * ```make pspace```
+    >       * like space, but without debug stuff and such
+    >       * adds flags -s and -DNDEBUG instead of -Og
+    >   * ```make max```
+    >       * brutally shoves all the previous modes together
+    >       * might make it unstable
+    >       * enables your given files, flags and the additional flags: 
+    >           * -Os (better than -O2, more stable-ish than -O3) 
+    >           * -Ofast (as far as i know optimal for fast)
+    >           * -Oz (optimized for space efficiency)
+    >           * -Og (for debugging)
+    >   * ```make pmax```
+    >       * like max, but without debug stuff and such
+    >       * adds max -s and -DNDEBUG instead of -Og
     >   * ```make clean```
     >       * removes compiled executable
     >   * ```make clear```
