@@ -71,29 +71,35 @@ This is to make my, *and if you want your,*  life easier.
     >       * can be Path too
     >* ***DefaultModes***
     >   * just ```make```
-    >       * compiles with -Og (for debugging) by Default, and your other args and <files
+    >       * compiles with -Og (for debugging) by Default, and your other args and files
+    >       * Also compiles with enablin warning flags arguments
     >   * ```make prod```
     >       * compiles for production
     >       * enables your given files, flags and the additional flags: 
     >           * -Os (better than -O2, more stable-ish than -O3) 
     >           * -s (removes unnecessary stuff) 
     >           * -DNDEBUG (no asserts etc.)
+    >       * Also compiles with enablin warning flags arguments
     >   * ```make fast```
     >       * compiles optimized for speed
     >       * enables your given files, flags and the additional flags: 
     >           * -Ofast (as far as i know optimal for fast)
     >           * -Og (for debugging)
+    >       * Also compiles with enablin warning flags arguments
     >   * ```make pfast```
     >       * like fast, but without debug stuff and such
     >       * adds flags -s and -DNDEBUG instead of -Og
+    >       * Also compiles with enablin warning flags arguments
     >   * ```make space```
     >       * compiles optimized for space efficiency (i think memory and storage, idk exactly though)
     >       * enables your given files, flags and the additional flags: 
     >           * -Oz (optimized for space efficiency)
     >           * -Og (for debugging)
+    >       * Also compiles with enablin warning flags arguments
     >   * ```make pspace```
     >       * like space, but without debug stuff and such
     >       * adds flags -s and -DNDEBUG instead of -Og
+    >       * Also compiles with enablin warning flags arguments
     >   * ```make max```
     >       * brutally shoves all the previous modes together
     >       * might make it unstable
@@ -102,9 +108,11 @@ This is to make my, *and if you want your,*  life easier.
     >           * -Ofast (as far as i know optimal for fast)
     >           * -Oz (optimized for space efficiency)
     >           * -Og (for debugging)
+    >       * Also compiles with enablin warning flags arguments
     >   * ```make pmax```
     >       * like max, but without debug stuff and such
     >       * adds max -s and -DNDEBUG instead of -Og
+    >       * Also compiles with enablin warning flags arguments
     >   * ```make clean```
     >       * removes compiled executable
     >   * ```make clear```

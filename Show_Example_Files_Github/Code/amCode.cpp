@@ -108,42 +108,42 @@ int main(int argc, char *argv[])
   MakeFile << "$(OUTPUT): $(MAINFILE) $(OTHERFILES)\n";
   // --std=c++VERSION before the OTHERFLAGS as the later flag (if provides as input arg) overwrites the provious
   MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
-           << "$(OTHERFLAGS) -Og\n\n";
+           << "$(OTHERFLAGS) -Og -Wall -Wextra -pedantic -O2\n\n";
 
   MakeFile << "# Production target (optimized and stripped binary)\n";
   MakeFile << "prod: $(MAINFILE) $(OTHERFILES)\n";
   MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
-           << "$(OTHERFLAGS) -Os -s -DNDEBUG\n\n";
+           << "$(OTHERFLAGS) -Os -s -DNDEBUG -Wall -Wextra -pedantic\n\n";
 
   MakeFile << "# optimized for speed\n";
   MakeFile << "fast: $(MAINFILE) $(OTHERFILES)\n";
   MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
-           << "$(OTHERFLAGS) -Ofast -Og\n\n";
+           << "$(OTHERFLAGS) -Ofast -Og -Wall -Wextra -pedantic\n\n";
 
   MakeFile << "# optimized for speed, but without debug\n";
   MakeFile << "pfast: $(MAINFILE) $(OTHERFILES)\n";
   MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
-           << "$(OTHERFLAGS) -Ofast -s -DNDEBUG\n\n";
+           << "$(OTHERFLAGS) -Ofast -s -DNDEBUG -Wall -Wextra -pedantic\n\n";
 
   MakeFile << "# optimized for space/memory efficiency\n";
   MakeFile << "space: $(MAINFILE) $(OTHERFILES)\n";
   MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
-           << "$(OTHERFLAGS) -Oz -Og\n\n";
+           << "$(OTHERFLAGS) -Oz -Og -Wall -Wextra -pedantic -O2\n\n";
 
   MakeFile << "# optimized for space/memory efficiency, but without debug\n";
   MakeFile << "pspace: $(MAINFILE) $(OTHERFILES)\n";
   MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
-           << "$(OTHERFLAGS) -Oz -s -DNDEBUG\n\n";
+           << "$(OTHERFLAGS) -Oz -s -DNDEBUG -Wall -Wextra -pedantic\n\n";
 
   MakeFile << "# Just everything thrown together\n";
   MakeFile << "max: $(MAINFILE) $(OTHERFILES)\n";
   MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
-           << "$(OTHERFLAGS) -Os -Ofast -Oz -Og\n\n";
+           << "$(OTHERFLAGS) -Os -Ofast -Oz -Og -Wall -Wextra -pedantic\n\n";
 
   MakeFile << "# Just everything thrown together, but without debug\n";
   MakeFile << "pmax: $(MAINFILE) $(OTHERFILES)\n";
   MakeFile << "\t$(CC) $(MAINFILE) $(OTHERFILES) -o $(OUTPUT) " << (!isCfile ? "$(LANGUAGESTD) " : "")
-           << "$(OTHERFLAGS) -Os -Ofast -Oz -s -DNDEBUG\n\n";
+           << "$(OTHERFLAGS) -Os -Ofast -Oz -s -DNDEBUG -Wall -Wextra -pedantic\n\n";
 
   MakeFile << "# Clean target (works for Linux and Windows)\n";
   MakeFile << "clean:\n";
