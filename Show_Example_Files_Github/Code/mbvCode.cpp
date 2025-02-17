@@ -1,7 +1,6 @@
 // mini binary printer
 // Warning, code is not optimized, might lead to pain
 
-
 #include <bitset>
 #include <cmath>
 #include <cstddef>
@@ -15,10 +14,13 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <boost/multiprecision/cpp_int.hpp>
 
 int printUsage();
 template <size_t Max>
 std::array<std::string, Max> generateBitsetTable();
+
+void printNumber(const std::vector<uint8_t> &data, bool isSigned, std::ostringstream &out);
 
 constexpr int vId(auto A)
 {
@@ -85,14 +87,20 @@ int main(int argc, char *argv[])
   std::ostringstream outBuffer;
   std::vector<uint8_t> chunk(inputs[vId(InputVec::Bytes)]);
   static const auto bitsetTable = generateBitsetTable<256>();
-  int counter = 0, lineCount = 0;
+  int counter = inputs[vId(InputVec::Chunks)], lineCount = 0;
 
-  while (file.read(reinterpret_cast<char *>(chunk.data()), chunk.size()))
+  while (file.read(reinterpret_cast<char *>(chunk.data()), chunk.size()) || file.gcount() > 0)
   {
     auto *ptr = chunk.data();
     auto *end = ptr + file.gcount();
 
-    outBuffer << ' ';
+    if (++counter >= inputs[vId(InputVec::Chunks)])
+    {
+      outBuffer << '\n' << ++lineCount;
+      counter = 0;
+    }
+    outBuffer << "  ";
+
     switch (inputs[vId(InputVec::Mode)])
     {
     case 0:
@@ -102,46 +110,23 @@ int main(int argc, char *argv[])
       while (ptr < end) outBuffer << (std::isprint(*ptr) ? static_cast<char>(*ptr++) : '.'), ++ptr;
       break;
     case 2:
-      while (ptr < end)
-      {
-        outBuffer << std::setw(3) << std::setfill('0') << std::oct << static_cast<int>(*ptr++) << ' ';
-      }
+      while (ptr < end) { outBuffer << std::setw(3) << std::setfill('0') << std::oct << static_cast<int>(*ptr++); }
       break;
     default:
-      while (ptr < end)
-      {
-        outBuffer << std::setw(2) << std::setfill('0') << std::hex << static_cast<int>(*ptr++) << ' ';
-      }
+      while (ptr < end) { outBuffer << std::setw(2) << std::setfill('0') << std::hex << static_cast<int>(*ptr++); }
       break;
-
     }
 
     if (inputs[vId(InputVec::IntDisplay)] > 0)
     {
       static const int inpBitsP{inputs[vId(InputVec::Bytes)] * 8};
-      static const int width{static_cast<int>(std::floor(inpBitsP * std::log10(2))) + 2}; // +1 for sign original +1 is cuz formula
+      static const int width{static_cast<int>(std::floor(inpBitsP * std::log10(2))) +
+                             2}; // +1 for sign original +1 is cuz formula
       static const bool asSigned{inputs[vId(InputVec::IntDisplay)] == 1};
 
-      unsigned long long value = 0;
-      std::memcpy(&value, chunk.data(), std::min(sizeof(value), chunk.size()));
+      outBuffer << " : " << std::setw(width) << std::setfill(' ');
+      printNumber(chunk, asSigned, outBuffer);
 
-      // Check if the sign bit is set and handle sign extension accordingly
-      if (asSigned && value & (1ULL << (inpBitsP - 1))) // Sign bit is set
-      {
-        // Perform sign extension and print as signed
-        long long signedValue = static_cast<long long>(value | (~((1ULL << inpBitsP) - 1)));
-        outBuffer << ": " << std::setw(width) << std::setfill(' ') << signedValue << ' ';
-      }
-      else // No sign bit, print as unsigned
-      {
-        outBuffer << ": " << std::setw(width) << std::setfill(' ') << value << ' ';
-      }
-    }
-
-    if (++counter >= inputs[vId(InputVec::Chunks)])
-    {
-      outBuffer << ' ' << ++lineCount << '\n';
-      counter = 0;
     }
   }
 
@@ -165,4 +150,17 @@ std::array<std::string, Max> generateBitsetTable()
   std::array<std::string, Max> table;
   for (size_t i = 0; i < Max; ++i) table[i] = std::bitset<8>(i).to_string() + ' ';
   return table;
+}
+
+void printNumber(const std::vector<uint8_t> &data, bool isSigned, std::ostringstream &outBuffer)
+{
+  static boost::multiprecision::cpp_int result{};
+  result = 0;
+  for (uint8_t i : data) result = (result << 8) | i;
+
+  if (data[0] & 1 << 7 && isSigned)
+  {
+    result -= boost::multiprecision::cpp_int(1) << (data.size() * 8);
+  }
+  outBuffer << result;
 }
