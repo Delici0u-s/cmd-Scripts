@@ -69,7 +69,7 @@ int main (int argc, char *argv[]) {
 
   file << "# Additional args: \nAdditionals = " << args << "\n\n";
   file << "Err = -O2 -Wall -Wextra -Wpedantic\n";
-  file << "Debug = -0g -g -ggdb -fbi-omit-frame-pointer\n";
+  file << "Debug = -Og -g -ggdb -fno-omit-frame-pointer\n";
   file << "Prod = -Ofast -Oz -s -Os -DNDEBUG\n\n";
 
   file << "all: $(OUTPUT)\n\n";

@@ -7,6 +7,9 @@ This is to make my, *and if you want your,*  life easier.
 >Download them via got clone or downloading via git as zip, or any other way you want.  
 >Put these files in a directory that is in your PATH environment, or add that folder to your PATH environment.  
 >Done!
+
+
+## Readme.md will be updated ad a later point in time. For now rely on the the executable file help, usually accessible by: bla.exe  or bla.exe --help
   
 ---
 ## Commands:
