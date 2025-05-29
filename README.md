@@ -15,7 +15,7 @@ This README is now updated with all available commands and their usage.
 ## Commands:
 
 1. ### lsd
-    > * **FILE:** lsd.exe  
+    > * **FILE:** lsdCode.c  
     > * ***Description***  
     >   * Shows you all files in the current directory, colored and compact  
     >   * Example:  
@@ -27,7 +27,7 @@ This README is now updated with all available commands and their usage.
     >     ![Color Coding Example](https://raw.githubusercontent.com/Delici0u-s/cmd-Scripts/refs/heads/master/Show_Example_Files_Github/OtherFiles/ColorCoding.png)
 
 2. ### cr
-    > * **FILE:** cr.exe  
+    > * **FILE:** crCide.cpp
     > * ***Description***  
     >   * Create bunch of Files and Folders at once (short for create)  
     >   * Example:  
@@ -47,7 +47,7 @@ This README is now updated with all available commands and their usage.
 
 
 3. ### am
-    > * **FILE:** am.exe  
+    > * **FILE:** amCode.cpp
     > * ***Description***  
     >   * Creates a makefile based on input arguments, reducing writing effort  
     >   * Short for AutoMakeFileGenerator  
@@ -66,7 +66,7 @@ This README is now updated with all available commands and their usage.
     >   * ```-o compilationName``` defines the output name (can be a path)
 
 4. ### gj
-    > * **FILE:** gj.exe  
+    > * **FILE:** gjCode.cpp
     > * ***Description***  
     >   * Removes all specified Files and Folders at once  
     >   * “gj” stands for GoodJob, as a final goodbye to the files  
@@ -78,7 +78,7 @@ This README is now updated with all available commands and their usage.
     >       * ```gj main.cpp Samples D:\example\output.exe``` removes the listed files (handles absolute paths as well)
 
 5. ### mbv
-    > * **FILE:** mbv.exe  
+    > * **FILE:** mbvCode.cpp
     > * ***Description***  
     >   * A mini viewer printer for dumping file contents in various formats  
     >   * Modes include binary, hexadecimal, octal, and character display  
@@ -93,6 +93,14 @@ This README is now updated with all available commands and their usage.
     >   1  None  
     >   2  Signed Integer  
     >   2  Unsigned Integer
+
+6. ### rl
+    > * **FILE:** rlCode.c 
+    > * ***Description***  
+    >   * removes x amount of lines above the current line 
+    >   * defaults to 3
+    > * ***Usage***  
+    >   * ```mbv <lines>```
 
 ---
 ## Thanks for Reading!
